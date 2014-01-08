@@ -14,23 +14,30 @@
             <artifactId>jibx-run</artifactId>
             <version>1.2.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-extras</artifactId>
+            <version>1.2.5</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jibx</groupId>
-                <artifactId>jibx-maven-plugin</artifactId>
-                <version>1.2.5</version>
+                <artifactId>maven-jibx-plugin</artifactId>
                 <configuration>
-                    <schemaBindingDirectory>src/main/resources/bindings</schemaBindingDirectory>
-                    <includeSchemaBindings>
-                        <includeSchemaBindings>*-binding.xml</includeSchemaBindings>
-                    </includeSchemaBindings>
+                    <directory>src/main/resources/bindings</directory>
+                    <includes>
+                        <includes>*-binding.xml</includes>
+                    </includes>
+                    <verify>true</verify>
+                    <validate>true</validate>
                     <verbose>true</verbose>
                 </configuration>
                 <executions>
                     <execution>
+                        <phase>process-classes</phase>
                         <goals>
                             <goal>bind</goal>
                         </goals>
