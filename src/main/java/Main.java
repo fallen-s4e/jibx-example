@@ -18,25 +18,24 @@ public class Main {
     public static void main(String[] args) throws Exception {
         write(getDummyCustomer(), "customer.xml");
 
-        write(read("customer.xml"), System.out);
+        write(read("customer.xml", Customer.class), System.out);
     }
-
-    private static void write(Customer message, OutputStream os) throws Exception {
-        IBindingFactory jc = BindingDirectory.getFactory(Customer.class);
+    private static void write(Object message, OutputStream os) throws Exception {
+        IBindingFactory jc = BindingDirectory.getFactory(message.getClass());
         IMarshallingContext marshaller = jc.createMarshallingContext();
         marshaller.setIndent(4);
         marshaller.marshalDocument(message, "utf-8", null, os);
         marshaller.getXmlWriter().flush();
     }
 
-    private static void write(Customer message, String fileName) throws Exception {
+    private static void write(Object message, String fileName) throws Exception {
         write(message, new FileOutputStream(fileName));
     }
 
-    private static Customer read(String fileName) throws Exception {
+    private static <T> T read(String fileName, Class<T> clazz) throws Exception {
         InputStream inStream = new FileInputStream(fileName);
-        IBindingFactory jc = BindingDirectory.getFactory(Customer.class);
-        return (Customer)jc.createUnmarshallingContext().unmarshalDocument(inStream, null);
+        IBindingFactory jc = BindingDirectory.getFactory(clazz);
+        return (T)jc.createUnmarshallingContext().unmarshalDocument(inStream, null);
     }
 
     public static Customer getDummyCustomer() {
