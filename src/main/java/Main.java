@@ -1,12 +1,16 @@
 
 import example.Address;
 import example.Customer;
+import example.Name;
+import example.Order;
 import org.jibx.runtime.*;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +24,7 @@ public class Main {
 
         write(read("customer.xml", Customer.class), System.out);
     }
+
     private static void write(Object message, OutputStream os) throws Exception {
         IBindingFactory jc = BindingDirectory.getFactory(message.getClass());
         IMarshallingContext marshaller = jc.createMarshallingContext();
@@ -40,11 +45,21 @@ public class Main {
 
     public static Customer getDummyCustomer() {
         Customer c = new Customer();
+
+        c.setName(new Name());
         c.setAddress(new Address());
+
         c.getAddress().setCity("1");
         c.getAddress().setState("2");
         c.getAddress().setStreet("3");
         c.getAddress().setZip(4);
+
+        c.getName().setFirstName("Имя");
+        c.getName().setLastName("lastName");
+
+        c.setOrders(new Order[]{new Order()});
+        c.getOrders()[0].setAmount(new BigDecimal(1337));
+        c.getOrders()[0].setDate(new Date());
         return c;
     }
 }

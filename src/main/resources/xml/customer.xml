@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<customer>
+    <name>
+        <first-name>Имя</first-name>
+        <last-name>lastName</last-name>
+    </name>
+    <address zip="4">
+        <street>3</street>
+        <city>1</city>
+        <state>2</state>
+    </address>
+    <order date="2014-01-10T05:06:09.37Z" amount="1337"/>
+</customer>
